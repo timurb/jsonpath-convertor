@@ -99,8 +99,8 @@ def test_array_complex():
 def test_array_complex_full():
     input = {
         "a.b.0.c": 1,
-        "a.b.0.d": "ABC",
         "a.b.1": "ABC",
+        "a.b.0.d": "ABC",   # support unnormalized order of input strings
         "a.e": "CDE",
         "b.f.0.g.0": "CDE"
     }
