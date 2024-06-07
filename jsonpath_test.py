@@ -60,7 +60,6 @@ def test_recursive2():
     assert result == expected
 
 
-@pytest.mark.skip(reason="not implemented")
 def test_array_simple():
     input = {
         "a.0": 1,
@@ -78,7 +77,6 @@ def test_array_simple():
     assert result == expected
 
 
-@pytest.mark.skip(reason="not implemented")
 def test_array_complex():
     input = {
         "a.0.b": 1,
@@ -98,7 +96,6 @@ def test_array_complex():
     assert result == expected
 
 
-@pytest.mark.skip(reason="not implemented")
 def test_array_complex_full():
     input = {
         "a.b.0.c": 1,
