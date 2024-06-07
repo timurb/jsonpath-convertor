@@ -1,41 +1,42 @@
-#
-#  Constructs branch of dict of target structure from inputs
-#
-#  Implementation Logic:
-#  1. Split array of ["a","b","c"] into head ["a"] and tail ["b","c"]
-#  2. If there is no tail just use head to construct dict
-#     Example: ["c"] -> {"c": value}
-#  3. Otherwise recursively call the function for tail only  
-#
-#  Parameters:
-#   - keys: JSONPath notation processed into array
-#   - value: value to assign
-#   - result: dict to modify with processed value
-#             On the first iteration this is result for target dict.
-#             On recursive iteration that is result for the branch of the dict 
-# 
-def build_dict(keys, value, result):
-    current_key = keys[0]
+def build_tree(tree, path, value):
+    """
+        Modify the leaf in the tree under target path
 
-    if len(keys) == 1:
-        result[current_key] = value
+        Implementation Logic:
+            1. If path consists of only a single element -- just modify the branch for that key
+            2. Otherwise grown the branch by that element and recursively call the function
+               with child branch and the rest of elements
+
+        Parameters:
+            - tree: Branch to modify
+            - path: JSONPath notation processed into array
+            - value: value to assign
+    """
+    first_path = path[0]
+
+    if len(path) == 1:  # We got to the end of the path, just set the value for the leaf of the tree
+        tree[first_path] = value
         return
 
-    tail = keys[1:]
+    # Now combination of (first_path + tail) hold the original sequence for the whole path
+    tail = path[1:]
 
-    if not current_key in result:       # don't overwrite the branch in dict if there is one already
-        result[current_key] = {}
+    # Grow a new branch if no branch present
+    if not first_path in tree:
+        tree[first_path] = {}
 
-    build_dict(tail, value, result[current_key])
+    # Process that new branch in the same way as the current one
+    build_tree(tree[first_path], tail, value)
 
 
-#
-# Parses list of k/v into structured JSON
 def parse_jsonpath(input):
+    """
+        Parses list of k/v into structured JSON
+    """
     result = {}
 
     for key in input:
         value = input[key]
-        build_dict(key.split("."), value, result)
+        build_tree(result, key.split("."), value)
 
     return result

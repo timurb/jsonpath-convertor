@@ -1,19 +1,19 @@
 import pytest
 from jsonpath import parse_jsonpath
 
+
 def test_simple():
     input = {
         "a": 1
     }
 
-
     expected = {
-        "a": 1 
+        "a": 1
     }
 
     result = parse_jsonpath(input)
 
-    assert result==expected
+    assert result == expected
 
 
 def test_recursive1():
@@ -22,17 +22,17 @@ def test_recursive1():
         "b.c": 2
     }
 
-
     expected = {
         "a": 1,
         "b": {
             "c": 2
-        } 
+        }
     }
 
     result = parse_jsonpath(input)
 
-    assert result==expected
+    assert result == expected
+
 
 def test_recursive2():
     input = {
@@ -43,7 +43,6 @@ def test_recursive2():
         "b.e.g": 4
     }
 
-
     expected = {
         "a": 1,
         "b": {
@@ -53,12 +52,13 @@ def test_recursive2():
                 "f": "ABC",
                 "g": 4
             }
-        } 
+        }
     }
 
     result = parse_jsonpath(input)
 
-    assert result==expected
+    assert result == expected
+
 
 @pytest.mark.skip(reason="not implemented")
 def test_array_simple():
@@ -75,7 +75,8 @@ def test_array_simple():
     }
 
     result = parse_jsonpath(input)
-    assert result==expected
+    assert result == expected
+
 
 @pytest.mark.skip(reason="not implemented")
 def test_array_complex():
@@ -94,7 +95,7 @@ def test_array_complex():
     }
 
     result = parse_jsonpath(input)
-    assert result==expected
+    assert result == expected
 
 
 @pytest.mark.skip(reason="not implemented")
@@ -130,4 +131,4 @@ def test_array_complex_full():
     }
 
     result = parse_jsonpath(input)
-    assert result==expected
+    assert result == expected
